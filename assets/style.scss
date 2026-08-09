@@ -1,0 +1,513 @@
+:root {
+  --copyright-color: white;
+}
+
+:root.light {
+  --copyright-color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+div.copyright {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--copyright-color);
+  font-size: 12px;
+  z-index: 999;
+  width: 90%;
+  text-align: center;
+}
+
+div.copyright a {
+  color: var(--copyright-color);
+}
+
+.icon {
+  background: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center center;
+  mask-size: contain;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+
+  &.play {
+    mask-image: url('images/play.svg');
+  }
+
+  &.shuffle {
+    mask-image: url('images/shuffle.svg');
+  }
+
+  &.record {
+    mask-image: url('images/record.svg');
+  }
+
+  &.map {
+    mask-image: url('images/map.svg');
+  }
+
+  &.trophy {
+    mask-image: url('images/trophy.svg');
+  }
+
+  &.bomb {
+    mask-image: url('images/bomb.svg');
+  }
+
+  &.sun {
+    mask-image: url('images/sun.svg');
+  }
+
+  &.moon {
+    mask-image: url('images/moon.svg');
+  }
+}
+
+
+#settings {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  background: #666;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 999;
+  min-width: 50%;
+
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 1s linear;
+
+  &.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  h3 {
+    padding: 0;
+    margin: 0;
+    font-size: 12pt;
+    color: #fefefe;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 5rem;
+    border: none;
+    background: #999;
+    font-size: 14pt;
+  }
+
+  button, .btn {
+    color: #fefefe;
+    background: #222;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: relative;
+    display: inline-block;
+
+    &:active:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+  }
+
+  div.theme {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    color: white;
+    justify-content: flex-end;
+  }
+
+  div.left {
+    flex-grow: 1;
+    flex-shrink: 1;
+    order: 1;
+
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: stretch;
+      gap: 2px;
+    }
+  }
+
+  .btn-toggle-settings {
+    display: none;
+  }
+
+  div.right {
+    order: 2;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    div.row {
+      display: flex;
+      align-items: center;
+      height: 35px;
+
+      label {
+        width: 150px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        padding-left: 1rem;
+        color: white;
+      }
+
+      .toggle-item {
+        width: 50%;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  select {
+    height: 25px;
+    width: 100%;
+    border-radius: 5px;
+    background: #999;
+  }
+
+  input[type=checkbox] {
+    width: 50px;
+    display: inline-block;
+    padding-right: 63px;
+    height: 25px;
+    position: relative;
+    vertical-align: middle;
+
+    &:before {
+      position: absolute;
+      content: '';
+      display: inline-block;
+      width: 50px;
+      height: 25px;
+      border-radius: 25px;
+      background: #999;
+      top: 0;
+      left: 0;
+    }
+
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      border-radius: 25px;
+      width: 25px;
+      height: 25px;
+      background: #ccc;
+      transition: transform .2s;
+    }
+
+    &:checked:after {
+      transform: translateX(100%);
+      background: white;
+    }
+
+    &:checked:before {
+      content: '';
+      background: #00baff;
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: stretch;
+
+    & > * {
+      box-sizing: border-box;
+      flex-grow: 0;
+      flex-shrink: 0;
+      overflow: hidden;
+      height: 25px;
+      width: 33%;
+      border-radius: 0;
+      background: #999;
+      border: none;
+      padding: 0;
+      color: #fefefe;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:first-child {
+        border-radius: 10px 0 0 10px;
+      }
+
+      &:last-child {
+        border-radius: 0 10px 10px 0;
+      }
+
+      &.active:before {
+        content: '';
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+        vertical-align: middle;
+        mask-image: url('images/check.svg');
+        mask-repeat: no-repeat;
+        background: white;
+      }
+
+      &.active {
+        background: #333;
+      }
+    }
+
+    input[type=number] {
+      box-sizing: border-box;
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  #settings {
+    bottom: 60px;
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    width: calc(100% - 2rem);
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+    transition: visibility 0s, opacity 1s linear;
+
+    &.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .btn-toggle-settings {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      margin-bottom: 6px;
+      cursor: pointer;
+      font-size: 11pt;
+
+      .toggle-arrow {
+        font-style: normal;
+      }
+    }
+
+    .collapsible-rows.collapsed {
+      display: none;
+    }
+
+    textarea {
+      min-height: 2.5rem;
+      font-size: 11pt;
+    }
+
+    div.right div.row {
+      height: auto;
+      display: block;
+      border-bottom: 1px solid #555;
+      padding: .5rem 0;
+
+      label {
+        width: 100%;
+        margin-bottom: .5rem;
+        padding-left: 0;
+        display: block;
+      }
+
+      &.row-toggles {
+        display: flex;
+        flex-wrap: wrap;
+
+        .toggle-item {
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+        }
+
+        label {
+          order: 0;
+          margin-bottom: .3rem;
+        }
+
+        input[type=checkbox] {
+          order: 1;
+        }
+      }
+
+      &.row-theme {
+        display: none;
+      }
+
+      .icon {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+
+
+  }
+
+div.toast {
+  position: fixed;
+  transform: translate(-50%, 0);
+  padding: 8px;
+  border-radius: 4px;
+  background: #ccc;
+  overflow: hidden;
+  bottom: 10px;
+  left: 50%;
+  z-index: 1000;
+  animation: .2s linear fade-in, .2s linear 1s reverse fade-in;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ---- Room mode: tidy the spectator screen, invite field for the admin ---- */
+
+.topbar {
+  position: fixed;
+  top: .5em;
+  left: .5em;
+  z-index: 10;
+  display: flex;
+  gap: .5em;
+  align-items: center;
+}
+
+#viewerBadge {
+  display: none;
+  padding: .3em .8em;
+  border-radius: 1em;
+  background: rgba(0, 0, 0, .6);
+  border: 1px solid #888;
+  color: #ddd;
+  font-size: .9em;
+}
+
+#btnInstall {
+  display: none;
+
+  &.show {
+    display: block;
+  }
+}
+
+#inviteRow {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+
+  .invite-label {
+    color: #ddd;
+    font-size: .9em;
+    flex-shrink: 0;
+  }
+
+  #inviteLink {
+    flex: 1;
+    min-width: 0;
+    padding: .35em .6em;
+    border: 1px solid #888;
+    border-radius: .3em;
+    background: #222;
+    color: #9cf;
+    font-size: .95em;
+    cursor: pointer;
+  }
+}
+
+body.hosted #inviteRow {
+  display: flex;
+}
+
+body.viewer {
+  /* Keep the install button: spectators are exactly who want it on their phone */
+  #settings,
+  #inviteRow {
+    display: none !important;
+  }
+
+  #viewerBadge {
+    display: block;
+  }
+}
+
+/* ---- Spectator waiting notice ---- */
+
+#waiting {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background: rgba(0, 0, 0, .45);
+
+  .waiting-box {
+    padding: 1.2em 2em;
+    border-radius: .6em;
+    background: rgba(0, 0, 0, .75);
+    border: 1px solid #888;
+    text-align: center;
+  }
+
+  .waiting-title {
+    color: #fff;
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-bottom: .4em;
+  }
+
+  .waiting-desc {
+    color: #bbb;
+    font-size: .95em;
+  }
+}
+
+body.viewer.waiting #waiting {
+  display: flex;
+}

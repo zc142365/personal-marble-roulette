@@ -1,0 +1,74 @@
+{
+  "name": "personal-marble-roulette",
+  "version": "1.1.0",
+  "license": "MIT AND MPL-2.0",
+  "main": "electron/main.cjs",
+  "targets": {
+    "main": false
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.4",
+    "@parcel/packager-raw-url": "^2.16.4",
+    "@parcel/transformer-sass": "^2.16.4",
+    "@parcel/transformer-webmanifest": "^2.16.4",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "parcel": "^2.16.4",
+    "typescript": "^5.6.3",
+    "workbox-build": "7.4.0"
+  },
+  "scripts": {
+    "lint": "biome check --fix src/",
+    "dev": "parcel index.html --port 1235",
+    "build": "parcel build index.html --public-url ./ && node scripts/build-sw.js",
+    "serve": "node server.mjs",
+    "start": "yarn build && node server.mjs",
+    "test": "node test.mjs",
+    "electron": "electron .",
+    "dist:exe": "yarn build && electron-builder --win portable",
+    "dist:app": "yarn build && electron-builder"
+  },
+  "dependencies": {
+    "box2d-wasm": "^7.0.0",
+    "untun": "^0.2.2"
+  },
+  "build": {
+    "appId": "io.github.zc142365.personal-marble-roulette",
+    "productName": "PersonalMarbleRoulette",
+    "asar": false,
+    "files": [
+      "dist/**",
+      "electron/**",
+      "server.mjs",
+      "package.json",
+      "LICENSE",
+      "LICENSE-MIT"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "assets/ms-icon-310x310.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/ms-icon-310x310.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/ms-icon-310x310.png"
+    },
+    "extraResources": [
+      {
+        "from": "LICENSE",
+        "to": "LICENSE"
+      },
+      {
+        "from": "LICENSE-MIT",
+        "to": "LICENSE-MIT"
+      }
+    ]
+  },
+  "description": "A lucky draw by dropping marbles. One admin runs it; participants and spectators watch the same screen."
+}
